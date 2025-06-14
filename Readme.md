@@ -1,545 +1,234 @@
-🚀 Your 30-Day Azure DevOps & GitOps Learning Journey
-This roadmap is designed to guide you from foundational concepts to building a comprehensive DevOps pipeline using a powerful set of tools on Azure. The emphasis is on learning by doing with practical, hands-on challenges that build upon each other.
+🚀 Your Concise 30-Day Azure DevOps & GitOps Learning Journey
+This roadmap provides a structured, hands-on path to master key DevOps tools and concepts on Azure. We focus on building practical skills that directly apply to production environments, emphasizing why each step is crucial for reliable and efficient software delivery.
 
-Remember: Becoming an "expert" in 30 minutes a day for a month is a stretch, but this plan will give you an incredibly strong foundation and momentum. Consistency and applying concepts immediately are your keys to success!
+Goal: Gain confidence to provision infrastructure, manage configurations, containerize applications, and automate deployments on Azure using GitOps principles.
+
+Time Commitment: ~30 minutes per day. Consistency is key!
 
 ✨ Learning Objectives
-By the end of this journey, you will:
+Infrastructure as Code (IaC): Provision Azure resources with Terraform.
 
-Understand core DevOps principles and their application.
+Configuration Management: Automate server setup with Ansible.
 
-Master Infrastructure as Code (IaC) with Terraform on Azure.
+Containerization & Orchestration: Package apps with Docker and deploy on Azure Kubernetes Service (AKS).
 
-Automate server configuration with Ansible.
+Continuous Integration/Delivery (CI/CD): Automate builds and pushes with GitLab CI/CD & GitHub Actions.
 
-Deploy and manage containerized applications on Azure Kubernetes Service (AKS).
+GitOps: Implement declarative deployments to AKS using Argo CD.
 
-Implement a GitOps workflow using Argo CD.
+End-to-End Workflow: Integrate all tools for a complete DevOps pipeline.
 
-Automate your development and deployment processes with GitLab CI/CD and GitHub Actions.
+🛠️ Essential Tools & Prerequisites
+Ensure these are installed and familiar before starting:
 
-Integrate these tools to build a full end-to-end CI/CD pipeline.
+Foundational Knowledge: Basic Linux CLI, Git fundamentals, Docker basics, Cloud concepts (VMs, Networks).
 
-🛠️ Prerequisites & Tools
-Before you begin, ensure you have the following:
+Local Tools: Git, Azure CLI, Terraform CLI, Ansible, kubectl, Helm CLI, VS Code.
 
-Foundational Knowledge (Self-study if needed):
-Basic Linux Command Line: Navigating directories, basic commands (ls, cd, mkdir, rm).
+Cloud Account: Azure Free Tier or Subscription.
 
-Git Fundamentals: Cloning repositories, committing changes, pushing, pulling, basic branching.
+🗺️ The Learning Path: Building Production-Ready Skills
+Each module builds foundational skills, culminating in an integrated, automated pipeline.
 
-Docker Basics: Understanding containers, images, and Dockerfile concepts.
+Phase 1: Infrastructure as Code (IaC) on Azure (Days 1-7)
+Goal: Confidently provision Azure infrastructure using Terraform. This is the bedrock of reproducible environments.
 
-Cloud Computing Concepts: What is a VM, a network, a resource group? (Azure specific concepts will be covered).
+Day 1: Azure CLI & Git Basics
 
-Tools to Install Locally:
-Git: Download & Install Git
+Concept: Directly manage Azure resources; version control CLI commands.
 
-Azure CLI: Install Azure CLI
+Challenge: Login az login, create/delete Azure Resource Group. Commit CLI commands to Git.
 
-Terraform CLI: Install Terraform
+Reasoning: Manual tasks are error-prone. Versioning commands starts IaC thinking.
 
-Ansible: Install Ansible (Requires Python)
+Day 2-3: Terraform Core & Azure RGs
 
-kubectl: Install kubectl (Azure CLI can often install this for you: az aks install-cli)
+Concept: Declarative IaC with Terraform (providers, resources). Automate RG creation.
 
-Helm CLI: Install Helm (Used for packaging Kubernetes applications)
+Challenge: Write main.tf for Azure RM provider, define RG. terraform init, plan, apply, destroy.
 
-Text Editor / IDE: VS Code with extensions (e.g., Azure Terraform, Docker, YAML, Python) is highly recommended.
+Reasoning: Automates infrastructure setup, ensuring consistency across environments.
 
-Azure Account: A free tier or subscription.
+Day 4-5: Terraform Variables, Outputs & Networking
 
-🗺️ The Learning Path: Modules & Challenges (30 Mins/Day)
-Each module builds on the previous one. Focus on understanding the "why" and completing the "Challenge" for each day.
+Concept: Parameterize Terraform with variables; extract useful data with outputs. Build VNETs.
 
-Module 1: Azure Fundamentals & Infrastructure as Code with Terraform (Days 1-7)
-Goal: Understand Azure basics and provision cloud resources using Terraform.
+Challenge: Add variables.tf, outputs.tf. Create Azure VNet and subnets. Output VNet details.
 
-Day 1: Azure CLI & Resource Groups
+Reasoning: Variables make code reusable. Outputs expose critical info for other tools. Networking is fundamental.
 
-Concept: Introduction to Azure's foundational building blocks (Resource Groups) and how to interact with Azure using its command-line interface.
+Day 6: Terraform Azure VMs & Remote State
 
-Challenge 1.1:
+Concept: Provisioning compute (VMs); storing Terraform state safely for collaboration.
 
-Log in to Azure CLI (az login).
+Challenge: Add Azure VMs to subnets. Configure Azure Storage Account for remote state backend. terraform init -reconfigure.
 
-Create an Azure Resource Group.
+Reasoning: VMs are common app hosts. Remote state prevents conflicts and provides a single source of truth for your infrastructure's current state.
 
-Delete the Resource Group.
+Day 7: Terraform Practice & Cleanup
 
-Git Practice: Initialize a Git repository, commit your CLI commands to a README.md or a .sh script, and push to GitHub/GitLab.
+Concept: Reinforce Terraform workflow.
 
-Day 2: Terraform Basics - Providers & Resources
+Challenge: Modify VM specs, apply. Full terraform destroy (except state backend).
 
-Concept: Introduction to Terraform syntax (.tf files), providers (AzureRM), and defining basic resources.
+Reasoning: Practice confirms understanding. Clean-up prevents unexpected cloud costs.
 
-Challenge 2.1:
+Phase 2: Configuration Management with Ansible (Days 8-12)
+Goal: Automate software installation and configuration on your provisioned VMs.
 
-Create a new directory infra/azure-basics/.
+Day 8-9: Ansible Playbooks & Modules
 
-Write a main.tf to define the azurerm provider.
+Concept: Agentless configuration automation via YAML playbooks (tasks, modules).
 
-Declare an Azure Resource Group resource using Terraform.
+Challenge: Create ansible/inventory.ini with VM IPs. Write playbook to install Nginx on web-vm. ansible-playbook.
 
-Run terraform init, terraform plan, terraform apply -auto-approve.
+Reasoning: Automates repeatable setup tasks, ensuring consistent server configurations.
 
-Verify the RG exists in Azure Portal. Run terraform destroy -auto-approve.
+Day 10-11: Ansible Variables, Handlers & Roles
 
-Git Practice: Commit and push your infra/azure-basics/ changes.
+Concept: Flexible playbooks with variables; triggered actions with handlers; reusable roles.
 
-Day 3: Terraform Variables & Outputs
+Challenge: Use variables for Nginx package. Add handler to restart Nginx on config change. Convert playbook to an nginx role.
 
-Concept: Making your Terraform code reusable using variables and extracting useful information with outputs.
-
-Challenge 3.1:
-
-Add variables.tf to define variables for your Resource Group name and location.
-
-Modify main.tf to use these variables.
-
-Add an outputs.tf to output the Resource Group ID.
-
-Apply and destroy, passing variable values.
-
-Day 4: Terraform Azure Virtual Networks & Subnets
-
-Concept: Deploying networking components vital for cloud infrastructure.
-
-Challenge 4.1:
-
-Extend your Terraform code to create an Azure Virtual Network and two subnets within it, all in your existing Resource Group.
-
-Output the VNet and Subnet IDs.
-
-Day 5: Terraform Azure Virtual Machines
-
-Concept: Provisioning compute resources (VMs) and connecting them to your network.
-
-Challenge 5.1:
-
-Add two Azure Virtual Machines (web-vm, app-vm) to your Terraform configuration.
-
-Place them in the subnets created in Challenge 4.1.
-
-Ensure SSH ports are open. Output their public IPs.
-
-Day 6: Terraform Remote State
-
-Concept: Storing Terraform's state file remotely (e.g., Azure Storage Account) for team collaboration and security.
-
-Challenge 6.1:
-
-Create an Azure Storage Account and Container using the Azure CLI (for the state backend).
-
-Configure your Terraform backend in main.tf to use this Storage Account.
-
-Run terraform init -reconfigure, terraform plan, terraform apply. Observe the state file moving to Azure.
-
-Day 7: Review & Terraform Practice
-
-Concept: Consolidate Terraform knowledge.
-
-Challenge 7.1:
-
-Review all your Terraform code.
-
-Make a small change to a VM size or OS image in your main.tf.
-
-Run terraform plan to see the proposed changes.
-
-Run terraform apply to implement the change.
-
-Perform a full terraform destroy to clean up all resources created so far (except the remote state storage account, which you'll keep).
-
-Module 2: Configuration Management with Ansible (Days 8-12)
-Goal: Automate software installation and configuration on VMs provisioned by Terraform.
-
-Day 8: Ansible Basics & Inventory
-
-Concept: What Ansible does (idempotency, agentless), and how to define target machines (inventory).
-
-Challenge 8.1:
-
-Create a new directory ansible/ in your root.
-
-Create a static inventory.ini file for your web-vm and app-vm using their public IPs (from Terraform outputs).
-
-Run a simple ad-hoc Ansible command (e.g., ansible -i inventory.ini web-vm -m ping).
-
-Git Practice: Commit and push your Ansible inventory.
-
-Day 9: Ansible Playbooks & Modules
-
-Concept: Writing structured YAML playbooks to define tasks using various modules.
-
-Challenge 9.1:
-
-Create ansible/webserver-config/install_nginx.yml.
-
-Write a playbook that connects to your web-vm and uses the apt (for Ubuntu) or yum (for CentOS) module to install Nginx.
-
-Use the service module to ensure Nginx is running.
-
-Run the playbook: ansible-playbook -i ../inventory.ini install_nginx.yml.
-
-Verify Nginx is running on the VM.
-
-Day 10: Ansible Variables & Handlers
-
-Concept: Using variables within playbooks for flexibility and handlers for triggered actions.
-
-Challenge 10.1:
-
-Add a variable for the Nginx package name.
-
-Add a copy module task to deploy a custom index.html file to /var/www/html.
-
-Use a handler to restart Nginx only when index.html is changed.
-
-Day 11: Ansible Roles
-
-Concept: Organizing playbooks into reusable and shareable roles.
-
-Challenge 11.1:
-
-Convert your install_nginx.yml playbook into an Ansible role named nginx.
-
-Modify ansible/webserver-config/main.yml to call this role.
-
-Run the role.
+Reasoning: Variables enhance reusability. Handlers ensure actions only run when needed. Roles standardize and modularize automation.
 
 Day 12: Dynamic Inventory (Azure)
 
-Concept: Automatically fetching inventory from cloud providers like Azure, instead of static files.
+Concept: Automatically discovering target machines from cloud providers.
 
-Challenge 12.1:
+Challenge: Configure Ansible's Azure dynamic inventory plugin. Run Nginx role using dynamic inventory.
 
-Configure Ansible to use the Azure dynamic inventory plugin.
+Reasoning: Eliminates manual inventory updates, essential for scalable cloud environments.
 
-Modify your Ansible commands to use the dynamic inventory.
+Phase 3: Containerization & Orchestration (Days 13-17)
+Goal: Package applications into containers and deploy them on a managed Kubernetes cluster.
 
-Run your Nginx role against dynamically discovered Azure VMs.
+Day 13-14: Dockerizing App & Azure Container Registry (ACR)
 
-Module 3: Azure Kubernetes Service (AKS) & Containerization (Days 13-17)
-Goal: Deploy a managed Kubernetes cluster and containerize a simple application.
+Concept: Packaging apps into portable Docker images; storing images privately.
 
-Day 13: Dockerizing a Simple Application
+Challenge: Create app/web-app/Dockerfile for a simple app. Build locally. Terraform for ACR. Push image to ACR.
 
-Concept: How to package an application into a Docker image.
+Reasoning: Containers provide consistent runtime environments. ACR is a secure, scalable registry for production images.
 
-Challenge 13.1:
+Day 15: Terraform for Azure Kubernetes Service (AKS)
 
-Create a new directory app/web-app/.
+Concept: Automating the deployment of a managed Kubernetes cluster.
 
-Inside, create a simple index.html and a basic Dockerfile to serve it with Nginx (or a simple Flask/Node.js app).
+Challenge: Extend Terraform to provision an AKS cluster. Output kube_config.
 
-Build the Docker image locally: docker build -t my-web-app:v1 ..
+Reasoning: AKS simplifies Kubernetes management, reducing operational overhead in production.
 
-Run the container locally: docker run -p 8080:80 my-web-app:v1. Verify in browser.
+Day 16-17: Basic Kubernetes Deployment & Scaling on AKS
 
-Git Practice: Commit and push your app/web-app/ Dockerfile and app.
+Concept: Deploying applications to Kubernetes using YAML manifests (Deployment, Service); managing pods.
 
-Day 14: Azure Container Registry (ACR)
+Challenge: Connect kubectl to AKS. Write deployment.yaml and service.yaml for your app (from ACR). kubectl apply. Scale app.
 
-Concept: A private Docker registry in Azure to store your container images.
+Reasoning: Kubernetes orchestrates containers, providing high availability and scalability. Namespaces organize resources for different environments/teams.
 
-Challenge 14.1:
+Phase 4: Continuous Integration & Delivery (CI/CD) (Days 18-24)
+Goal: Automate the build, test, and initial deployment/push stages of your application and infrastructure. This phase drives your GitOps strategy.
 
-Extend your infra/azure-basics/ Terraform (or create a new infra/azure-acr/) to provision an Azure Container Registry (ACR).
+Day 18-19: GitLab CI/CD - Basics & Docker Build
 
-Output the ACR login server.
+Concept: Automating code pipelines with .gitlab-ci.yml (stages, jobs); building Docker images in CI.
 
-Log in to ACR using az acr login.
+Challenge: Push app/web-app/ to GitLab. Create .gitlab-ci.yml with build stage to build your app's Docker image.
 
-Tag your local Docker image (my-web-app:v1) for ACR.
+Reasoning: Automates repeatable development tasks, reducing manual errors and speeding up feedback.
 
-Push your Docker image to ACR.
+Day 20: GitLab CI/CD - Docker Push to ACR
 
-Day 15: Deploying AKS with Terraform
+Concept: Authenticating and pushing built Docker images to your cloud registry from CI.
 
-Concept: Provisioning a managed Kubernetes cluster on Azure.
+Challenge: Enhance .gitlab-ci.yml to log into ACR and push the built image with a unique tag (e.g., using $CI_COMMIT_SHORT_SHA).
 
-Challenge 15.1:
+Reasoning: Automated image promotion ensures only tested, versioned images reach the registry for deployment.
 
-Create a new Terraform configuration infra/aks-cluster/.
+Day 21-22: GitHub Actions - Terraform Plan & Apply
 
-Define an Azure Kubernetes Service (AKS) cluster resource.
+Concept: Automating infrastructure changes with GitHub's CI/CD; secure authentication to Azure.
 
-Output the kube_config file or credentials.
+Challenge: Push infra/aks-cluster/ Terraform to GitHub. Create .github/workflows/terraform.yml. Authenticate to Azure using GitHub Secrets (Service Principal). Run terraform plan and then a conditional terraform apply.
 
-Run terraform apply to deploy AKS.
+Reasoning: Automates infrastructure changes, ensuring consistency and auditability for production infrastructure. Conditional apply prevents accidental changes.
 
-Day 16: Basic Kubernetes Deployment on AKS
+Day 23-24: Application CI/CD Integration
 
-Concept: Core Kubernetes objects: Pods, Deployments, Services.
+Concept: A CI/CD pipeline that builds an application, pushes its image, and then automatically updates the Kubernetes manifest for GitOps.
 
-Challenge 16.1:
+Challenge: In your app-code-repo's GitLab CI pipeline (.gitlab-ci.yml): After building/pushing Docker image, add a job to clone your K8s config repo (k8s-config-repo). Use sed (or a Python script) to update the image tag in your deployment.yaml. Commit and push this change to k8s-config-repo.
 
-Configure kubectl to connect to your new AKS cluster: az aks get-credentials --resource-group <your-rg> --name <your-aks-name>.
+Reasoning: This is the critical "bridge" for GitOps, where CI produces a new artifact and automatically declares the desired state in Git.
 
-Create a new directory config/simple-app/.
+Phase 5: GitOps Deployment with Argo CD (Days 25-28)
+Goal: Implement a fully declarative, reconciled application deployment model for AKS. This is your production deployment strategy.
 
-Write deployment.yaml and service.yaml manifests for your my-web-app Docker image (using the image from ACR).
+Day 25: GitOps Principles & Argo CD Setup
 
-Deploy your application to AKS: kubectl apply -f config/simple-app/.
+Concept: Git as the single source of truth for desired state. Argo CD's role in continuous reconciliation.
 
-Verify the deployment and service: kubectl get pods, kubectl get svc.
+Challenge: Install Argo CD into your AKS cluster (if not done by Terraform in Phase 4). Access Argo CD UI/CLI. Create a new remote Git repository (k8s-config-repo) for your Kubernetes manifests.
 
-Access your application via the public IP of the Kubernetes service.
+Reasoning: GitOps ensures that what's in Git is exactly what's deployed, improving reliability, auditability, and rollback capabilities in production.
 
-Day 17: Kubernetes Namespaces & Scaling
+Day 26: Argo CD Application Definition & Sync
 
-Concept: Organizing resources with namespaces and scaling applications.
+Concept: Telling Argo CD what to deploy from where.
 
-Challenge 17.1:
+Challenge: Move your app/web-app's Kubernetes manifests (deployment.yaml, service.yaml) into your k8s-config-repo. Define an Argo CD Application resource in a separate file (e.g., argocd-app.yaml) that points to this k8s-config-repo path. Apply this Application to AKS.
 
-Create a new Kubernetes namespace for your app (e.g., dev-app).
+Reasoning: Argo CD automates deployment by continuously syncing your cluster to the state defined in your Git repository.
 
-Deploy your my-web-app into this new namespace.
+Day 27: Argo CD Reconciliation & Self-Healing
 
-Scale your Nginx deployment to 3 replicas using kubectl scale.
+Concept: Argo CD automatically correcting cluster state drift.
 
-Observe the new pods being created.
+Challenge: Manually delete your my-web-app deployment from AKS (kubectl delete). Observe Argo CD immediately redeploying it.
 
-Module 4: GitOps with Argo CD (Days 18-22)
-Goal: Implement a GitOps workflow where Kubernetes state is managed from a Git repository.
+Reasoning: Ensures your production environment never deviates from its desired state defined in Git.
 
-Day 18: GitOps Principles & Argo CD Installation
+Day 28: GitOps Driven Updates
 
-Concept: What GitOps is, its benefits (declarative, version-controlled, automated). Introduction to Argo CD as a GitOps tool.
+Concept: Changes to your application's desired state are made only in Git.
 
-Challenge 18.1:
+Challenge: Modify the replica count in your deployment.yaml in the k8s-config-repo Git repository. Commit and push. Observe Argo CD automatically updating the replicas on AKS.
 
-Install Argo CD onto your AKS cluster. (You can typically find official installation manifests online).
+Reasoning: All production changes go through Git, providing a full audit trail and easy rollbacks.
 
-Access the Argo CD UI via port-forwarding.
+Phase 6: End-to-End Orchestration (Days 29-30)
+Goal: Connect all the pieces to demonstrate a complete, automated DevOps workflow.
 
-Retrieve the initial admin password.
+Day 29: Infrastructure & Application Pipeline Kickoff
 
-Git Practice: Create a new remote Git repository (e.g., kubernetes-config) – this will be your "source of truth" for GitOps.
+Concept: Reviewing and orchestrating the full flow.
 
-Day 19: Argo CD Application Definition
+Challenge: Trigger your GitHub Actions workflow in infra-repo to deploy/update your AKS cluster and ACR. Then, make a small code change in your app-code-repo. Observe the GitLab CI pipeline running.
 
-Concept: How Argo CD defines and syncs applications using an Application custom resource.
+Reasoning: This simulates a real development scenario where infrastructure is updated and new application versions are pushed.
 
-Challenge 19.1:
+Day 30: Full GitOps Deployment Validation & Review
 
-Move your config/simple-app/deployment.yaml and service.yaml into your new kubernetes-config Git repository.
+Concept: Confirming the entire pipeline, from code change to live application, is automated and GitOps-driven.
 
-In your local config/argocd/ directory, create simple-app-argocd.yaml.
+Challenge: After Challenge 29.1, verify in Argo CD UI that the new image from GitLab CI was detected and deployed to AKS. Access your application's public IP to confirm the new version is live. Clean up all resources using Terraform (destroying AKS, ACR, VMs, etc.).
 
-Define an Application resource in this YAML that points Argo CD to your kubernetes-config repository's simple-app path and targets your AKS cluster.
+Reflect: Discuss the full cycle, the role of each tool, and how this process contributes to production stability, speed, and reliability. This is where your confidence solidifies.
 
-Apply this Application manifest to AKS: kubectl apply -f config/argocd/simple-app-argocd.yaml.
+💡 Keys to Success & Production Confidence
+Problem-Solving Focus: Every error is an opportunity to learn. Master reading error messages and searching for solutions. This is a top skill for production engineers.
 
-Observe Argo CD syncing and deploying your app. Verify in Argo CD UI.
+Version Control Everything: Treat infrastructure, configuration, and application manifests as code. This provides audit trails, rollback capabilities, and collaboration.
 
-Day 20: Argo CD Sync & Health
+Automation First: Automate repetitive tasks. Manual steps introduce human error in production.
 
-Concept: Understanding Argo CD's reconciliation loop, sync status, and health checks.
+Declarative vs. Imperative: Understand when to declare (Terraform, K8s manifests) and when to imperatively script (Ansible, CI/CD steps). GitOps is heavily declarative.
 
-Challenge 20.1:
+Security Mindset: From secrets management in CI/CD to network security in Azure and AKS, always consider security.
 
-Manually delete your my-web-app deployment from AKS using kubectl delete.
+Observability: Think about how you would monitor and log what your pipeline and applications are doing in a real environment.
 
-Observe Argo CD automatically "healing" (re-deploying) the application because it detects drift from Git.
+Small, Iterative Changes: Make small changes, commit often, and test continuously. This reduces risk in production.
 
-Modify the replica count in your deployment.yaml in the Git repository.
-
-Commit and push this change.
-
-Observe Argo CD detecting the change and updating your application on AKS.
-
-Day 21: Argo CD UI & CLI Exploration
-
-Concept: Navigating the Argo CD user interface and using its command-line tool.
-
-Challenge 21.1:
-
-Explore the Argo CD UI: view application details, history, logs, and resources.
-
-Use the argocd CLI to log in, list applications, and check their status.
-
-Day 22: GitOps Best Practices
-
-Concept: Discussion on separation of concerns (infra vs. app config), repository structure for GitOps, and branching strategies.
-
-Challenge 22.1:
-
-Reflect on your current Git repository structure. Discuss how infra, app, and config could be separate repos in a real-world scenario. (No coding, just conceptual understanding).
-
-Module 5: CI/CD Pipelines with GitLab & GitHub Actions (Days 23-27)
-Goal: Automate building, testing, and deploying using popular CI/CD platforms.
-
-Day 23: GitLab CI/CD Basics
-
-Concept: Introduction to .gitlab-ci.yml, stages, jobs, and runners.
-
-Challenge 23.1:
-
-Push your app/web-app/ code (Dockerfile, index.html) to a new GitLab repository.
-
-Create a .gitlab-ci.yml file in the root of this repo.
-
-Define a basic pipeline with a build stage that just prints "Building application..." and a test stage that prints "Running tests...".
-
-Commit and push, observe the pipeline running in GitLab.
-
-Day 24: GitLab CI/CD - Docker Build & Push
-
-Concept: Building and pushing Docker images to ACR from GitLab CI.
-
-Challenge 24.1:
-
-Modify your .gitlab-ci.yml to:
-
-Log in to your Azure Container Registry (ACR).
-
-Build your my-web-app Docker image.
-
-Push the image to ACR with a unique tag (e.g., using $CI_COMMIT_SHORT_SHA).
-
-Commit and push, verify the image appears in ACR.
-
-Day 25: GitHub Actions Basics
-
-Concept: Introduction to .github/workflows/, jobs, steps, and using marketplace actions.
-
-Challenge 25.1:
-
-Push your infra/aks-cluster/ Terraform code to a GitHub repository.
-
-Create a .github/workflows/terraform-plan.yml file.
-
-Define a simple workflow that triggers on push, checks out code, and prints "Running Terraform plan...".
-
-Commit and push, observe the workflow running in GitHub Actions.
-
-Day 26: GitHub Actions - Azure Authentication & Terraform Plan
-
-Concept: Securely authenticating to Azure from GitHub Actions using Service Principals/OIDC.
-
-Challenge 26.1:
-
-Create an Azure Service Principal (via Azure CLI) with Contributor role to your infrastructure Resource Group.
-
-Add the Service Principal credentials as GitHub Secrets to your repository.
-
-Modify terraform-plan.yml to:
-
-Authenticate to Azure using the azure/login action and your secrets.
-
-Install Terraform.
-
-Run terraform init (with remote backend config).
-
-Run terraform plan.
-
-Commit and push, verify the plan output in the workflow logs.
-
-Day 27: GitHub Actions - Terraform Apply (Conditional)
-
-Concept: Automating terraform apply with safeguards (e.g., manual approval, specific branch).
-
-Challenge 27.1:
-
-Add a new job or modify your existing terraform-plan.yml workflow to perform terraform apply.
-
-Implement a safety measure: Make the apply step require manual approval in a GitHub environment, or only run on a specific production branch.
-
-Commit and push, test the apply process.
-
-Module 6: End-to-End GitOps Pipeline (Days 28-30)
-Goal: Integrate all tools into a seamless, automated GitOps deployment workflow.
-
-Day 28: Orchestrating the Full Pipeline (Conceptual & Setup)
-
-Concept: How application code changes trigger image builds, which then trigger Kubernetes manifest updates, leading to GitOps deployments.
-
-Challenge 28.1:
-
-Review your three Git repositories:
-
-infra-repo (GitHub): Terraform for Azure (AKS, ACR).
-
-app-code-repo (GitLab): Your application code, Dockerfile, and GitLab CI pipeline.
-
-k8s-config-repo (GitHub or GitLab): Your Kubernetes manifests (Deployment, Service), watched by Argo CD.
-
-Ensure all repos are set up and connected as in previous challenges.
-
-Day 29: Automated Kubernetes Manifest Update
-
-Concept: The bridge between application CI/CD and GitOps – how the CI/CD pipeline updates the K8s manifest in the config repo.
-
-Challenge 29.1:
-
-In your app-code-repo's GitLab CI pipeline (.gitlab-ci.yml):
-
-After building and pushing the Docker image to ACR, add a new stage/job.
-
-This job will clone your k8s-config-repo.
-
-It will then use a tool like sed (or a Python script) to find and replace the image tag in your config/simple-app/deployment.yaml with the newly built image tag (e.g., my-web-app:$CI_COMMIT_SHORT_SHA).
-
-It will then commit this change and push it back to the k8s-config-repo.
-
-(Note: This requires GitLab CI to have write access to the k8s-config-repo. You'll need to set up a GitLab deploy token or SSH key for this).
-
-Commit a small change to your application code.
-
-Observe the GitLab CI pipeline run, update the K8s manifest, and push it.
-
-Day 30: End-to-End Validation & Review
-
-Concept: Observing the full GitOps flow in action.
-
-Challenge 30.1:
-
-After Challenge 29.1, open your Argo CD UI.
-
-Observe Argo CD detecting the new commit in k8s-config-repo and automatically deploying the updated application image to AKS.
-
-Access your application's public IP to confirm the new version is live.
-
-Reflect: What did you learn? What were the hardest parts? What are the next steps for deeper learning?
-
-💡 Motivation & Tips for Success
-Small Chunks (30 Mins Daily): Stick to the 30-minute commitment. If a challenge takes longer, break it into smaller parts. Consistency beats marathon sessions.
-
-Don't Copy-Paste Blindly: Type out the commands and code. Make mistakes, then fix them. That's how you truly learn.
-
-Understand the "Why": For every command, tool, or configuration, ask "Why am I doing this? What problem does it solve?"
-
-Troubleshooting is Learning: Errors are your best teachers. Read the error messages carefully, and use search engines (Google, Stack Overflow) to find solutions.
-
-Document Your Progress: Keep notes on what you learn, commands you use, and issues you face.
-
-Connect the Dots: After each module, explicitly think about how the new tool or concept fits into the broader DevOps picture.
-
-Visualize: Use diagrams (mental or drawn) to see how components like Git, CI/CD, Argo CD, and AKS interact.
-
-Celebrate Small Wins: Every successful terraform apply, ansible-playbook run, or pipeline green checkmark is a victory!
-
-🚀 Next Steps & Advanced Topics
-Once you've completed this roadmap, you'll have a formidable foundation. Consider these areas for deeper dives:
-
-Advanced Terraform: Custom modules, Terragrunt, tfsec for security scanning.
-
-Advanced Ansible: Custom facts, Jinja2 templating, Ansible Vault for secrets.
-
-Kubernetes Deep Dive: StatefulSets, Helm Charts (advanced), network policies, custom resource definitions (CRDs).
-
-Security: Integrating security scanning (SAST, DAST, container scanning) into CI/CD.
-
-Monitoring & Logging: Implementing Prometheus, Grafana, Azure Monitor, ELK stack.
-
-Service Mesh: Istio, Linkerd.
-
-Chaos Engineering: Gremlin, LitmusChaos.
-
-Cloud Cost Management: Understanding and optimizing Azure costs.
-
-More Advanced CI/CD: Release strategies, blue/green deployments, canary deployments.
-
-This journey will set you up for a highly in-demand career in DevOps. Enjoy the process!
+This journey will provide you with a robust foundation to confidently tackle production-level DevOps challenges. Enjoy the process of building and automating!
